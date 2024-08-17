@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cyni81pt67f7l"]
+[gd_scene load_steps=4 format=3 uid="uid://cyni81pt67f7l"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_rp30q"]
 [ext_resource type="Texture2D" uid="uid://c0nathc85mxlq" path="res://icon.svg" id="2_k37sf"]
+[ext_resource type="PackedScene" uid="uid://dll6qyowb7jcd" path="res://ui.tscn" id="3_f4f27"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_rp30q")
@@ -54,3 +55,5 @@ z_index = -1
 position = Vector2(46, 47)
 scale = Vector2(0.5625, 0.203125)
 texture = ExtResource("2_k37sf")
+
+[node name="CanvasLayer" parent="." instance=ExtResource("3_f4f27")]

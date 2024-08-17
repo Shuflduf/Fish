@@ -2,6 +2,8 @@ extends Node2D
 
 var fishing = false
 
+signal caught
+
 func _physics_process(delta: float) -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		%rod_hint.position.x += delta * 300
@@ -25,6 +27,7 @@ func cast():
 	new_fish.show()
 	new_fish.global_position = %rod.global_position
 	launch_into(new_fish, $player/basket.global_position, 300)
+	caught.emit()
 	$player/rod.position = Vector2.ZERO
 	fishing = false
 
