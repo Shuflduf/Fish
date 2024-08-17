@@ -79,9 +79,9 @@ scale = Vector2(0.328125, 0.328125)
 texture = ExtResource("8_lhc1g")
 
 [node name="DefaultFish" type="Sprite2D" parent="."]
-visible = false
 z_index = -1
 position = Vector2(29, 47)
+rotation = 1.0472
 scale = Vector2(0.280899, 0.140741)
 texture = ExtResource("4_mmdv8")
 

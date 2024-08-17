@@ -51,7 +51,6 @@ func cast():
 
 	var tween = get_tree().create_tween().set_trans(Tween.TRANS_CIRC)
 	tween.tween_property(%Rod, "rotation", -1.309, 0.3).set_ease(Tween.EASE_IN_OUT)
-	#tween.tween_callback()
 	tween.tween_property(%Rod, "rotation", 0, 0.2).set_ease(Tween.EASE_IN)
 	await tween.finished
 	var pre_cast_speed = lerp(0.6, 0.0, cast_speed / 100.0)
@@ -65,12 +64,16 @@ func cast():
 
 	for i in ceili(rain / 2.0):
 		var new_fish = $DefaultFish.duplicate()
+		var fish_tween = get_tree().create_tween().set_trans(Tween.TRANS_SINE)
 		$Fish.add_child(new_fish)
+
 		new_fish.show()
 		new_fish.global_position = %Bobber.global_position
+		var lifetime = 0.6 + randf_range(-0.2, 0.2)
+		fish_tween.tween_property(new_fish, "rotation", deg_to_rad(-60), lifetime)
 		launch_into(new_fish, $Basket.global_position, \
 				300 + randf_range(-50, 80), \
-				0.6 + randf_range(-0.2, 0.2), true)
+				lifetime, true)
 		await get_tree().create_timer(1 / (rain * ((cast_speed + 5) / 10.0))).timeout
 		caught.emit()
 
