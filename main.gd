@@ -8,6 +8,9 @@ signal caught
 var cast_speed = 0.0
 var bait_quality = 0.0
 
+func _ready() -> void:
+	randomize()
+
 
 func _physics_process(delta: float) -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -28,7 +31,8 @@ func cast():
 	await launch_into(%rod, %rod_hint.global_position, 0, pre_cast_speed)
 	
 	%rod_hint.position.x = 0
-	await get_tree().create_timer(randf_range(1, 5)).timeout
+	var wait_time = lerp(randf_range(4, 8), 0.3, bait_quality / 100.0)
+	await get_tree().create_timer(wait_time).timeout
 	var new_fish = $fish.duplicate()
 	add_child(new_fish)
 	new_fish.show()

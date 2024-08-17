@@ -16,7 +16,7 @@ func _on_window_close_requested() -> void:
 func _on_cast_button_pressed() -> void:
 	if get_parent().cast_speed + 3.0 <= 90:
 		get_parent().cast_speed += 3.0
-		$Window/VBoxContainer/FasterCast/Label.text = \
+		$Window/VBoxContainer/FasterCast/CastLabel.text = \
 				"Faster Cast: " \
 				+ str(get_parent().cast_speed) \
 				+ "%"
@@ -25,7 +25,7 @@ func _on_cast_button_pressed() -> void:
 func _on_bait_button_pressed() -> void:
 	if get_parent().bait_quality <= 80:
 		get_parent().bait_quality += 4.0
-		$Window/VBoxContainer/FasterCast/Label.text = \
+		$Window/VBoxContainer/BetterBait/BaitLabel.text = \
 				"Better Bait: " \
 				+ str(get_parent().bait_quality) \
 				+ "%"
