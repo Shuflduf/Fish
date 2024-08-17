@@ -8,9 +8,23 @@ func _physics_process(delta: float) -> void:
 	
 
 func cast():
-	var tween = get_tree().create_tween()
-	tween.tween_property($player/rod, "position", $player.to_local(%rod_hint.global_position), 0.6)
+	var ver_tween = get_tree().create_tween()\
+			.set_trans(Tween.TRANS_SINE)
+	ver_tween.tween_property($player/rod, "position:y", \
+			-$player.to_local(%rod_hint.global_position).y, 0.3) \
+			.set_ease(Tween.EASE_OUT)
+	
+	ver_tween.tween_property($player/rod, "position:y", \
+			$player.to_local(%rod_hint.global_position).y, 0.3) \
+			.set_ease(Tween.EASE_IN)
+		
+	var hor_tween = get_tree().create_tween()\
+			.set_trans(Tween.TRANS_SINE)
+	hor_tween.tween_property($player/rod, "position:x", \
+			$player.to_local(%rod_hint.global_position).x, 0.6)
+	
+	
 	%rod_hint.position.x = 0
-	await tween.finished
-	await get_tree().create_timer(1).timeout
+	await hor_tween.finished
+	await get_tree().create_timer(randf_range(1, 10)).timeout
 	$player/rod.position = Vector2.ZERO
