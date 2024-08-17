@@ -39,8 +39,13 @@ func cast():
 		return
 	fishing = true
 
+	var tween = get_tree().create_tween().set_trans(Tween.TRANS_CIRC)
+	tween.tween_property(%Rod, "rotation", -1.309, 0.3).set_ease(Tween.EASE_IN_OUT)
+	#tween.tween_callback()
+	tween.tween_property(%Rod, "rotation", 0, 0.2).set_ease(Tween.EASE_IN)
+	await tween.finished
 	var pre_cast_speed = lerp(0.6, 0.0, cast_speed / 100.0)
-	await launch_into(%rod, %rod_hint.global_position, 0, pre_cast_speed)
+	await launch_into(%Bobber, %rod_hint.global_position, 25, pre_cast_speed)
 
 	%rod_hint.position.x = 0
 	var wait_time = lerp(randf_range(4, 8), 0.3, bait_quality / 100.0)
@@ -48,10 +53,10 @@ func cast():
 
 
 	for i in ceili(rain / 2.0):
-		var new_fish = $fish.duplicate()
+		var new_fish = $DefaultFish.duplicate()
 		$Fish.add_child(new_fish)
 		new_fish.show()
-		new_fish.global_position = %rod.global_position
+		new_fish.global_position = %Bobber.global_position
 		launch_into(new_fish, $Basket.global_position, \
 				300 + randf_range(-50, 80), \
 				0.6 + randf_range(-0.2, 0.2), true)
@@ -59,7 +64,7 @@ func cast():
 		caught.emit()
 
 
-	$player/rod.position = Vector2.ZERO
+	%Bobber.position = $Player/BobberPos.position
 	fishing = false
 
 func launch_into(object: Node2D, target: Vector2, offset := 0.0, speed = 0.6, delete_on_finish = false):
