@@ -8,6 +8,8 @@ signal caught
 var cast_speed = 0.0
 var bait_quality = 0.0
 
+var continuous_fishing = false
+
 func _ready() -> void:
 	randomize()
 

@@ -38,7 +38,6 @@ text = "Shop"
 title = "Shop"
 initial_position = 1
 size = Vector2i(460, 190)
-visible = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Window"]
 anchors_preset = 15
@@ -49,10 +48,10 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 0
+alignment = 1
 
 [node name="FasterCast" type="HBoxContainer" parent="Window/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
 alignment = 1
 
 [node name="CastLabel" type="Label" parent="Window/VBoxContainer/FasterCast"]
@@ -68,7 +67,7 @@ text = "10 Fish / 3%"
 
 [node name="BetterBait" type="HBoxContainer" parent="Window/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 4
 alignment = 1
 
 [node name="BaitLabel" type="Label" parent="Window/VBoxContainer/BetterBait"]
@@ -82,7 +81,25 @@ size_flags_horizontal = 6
 size_flags_vertical = 4
 text = "30 Fish / 4%"
 
+[node name="Continuous" type="HBoxContainer" parent="Window/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="ContinuousLabel" type="Label" parent="Window/VBoxContainer/Continuous"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Continuous Fishing: false"
+
+[node name="ContinuousButton" type="Button" parent="Window/VBoxContainer/Continuous"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+text = "50 Fish"
+
 [connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]
 [connection signal="close_requested" from="Window" to="." method="_on_window_close_requested"]
 [connection signal="pressed" from="Window/VBoxContainer/FasterCast/CastButton" to="." method="_on_cast_button_pressed"]
 [connection signal="pressed" from="Window/VBoxContainer/BetterBait/BaitButton" to="." method="_on_bait_button_pressed"]
+[connection signal="pressed" from="Window/VBoxContainer/Continuous/ContinuousButton" to="." method="_on_continuous_button_pressed"]
