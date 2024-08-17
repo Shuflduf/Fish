@@ -26,8 +26,17 @@ scale = Vector2(1, 1.58594)
 texture = ExtResource("2_k37sf")
 
 [node name="rod" type="Sprite2D" parent="player"]
+unique_name_in_owner = true
 position = Vector2(116, 1.26109)
 scale = Vector2(0.546875, 0.344828)
+texture = ExtResource("2_k37sf")
+
+[node name="basket" type="Sprite2D" parent="player"]
+modulate = Color(1, 0.775167, 0.29, 1)
+position = Vector2(-138, 39.7241)
+rotation = 0.128
+scale = Vector2(0.81037, 0.649367)
+skew = 0.18507
 texture = ExtResource("2_k37sf")
 
 [node name="Node2D" type="Node2D" parent="."]
@@ -36,4 +45,12 @@ position = Vector2(-234, 60)
 [node name="rod_hint" type="Sprite2D" parent="Node2D"]
 unique_name_in_owner = true
 scale = Vector2(0.328125, 0.328125)
+texture = ExtResource("2_k37sf")
+
+[node name="fish" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 0, 0, 1)
+z_index = -1
+position = Vector2(46, 47)
+scale = Vector2(0.5625, 0.203125)
 texture = ExtResource("2_k37sf")

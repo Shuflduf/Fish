@@ -12,29 +12,39 @@ func _physics_process(delta: float) -> void:
 	
 
 func cast():
-	
 	if fishing:
 		%rod_hint.position.x = 0
 		return
 	fishing = true
+	
+	await launch_into(%rod, %rod_hint.global_position)
+	%rod_hint.position.x = 0
+	await get_tree().create_timer(randf_range(1, 5)).timeout
+	var new_fish = $fish.duplicate()
+	add_child(new_fish)
+	new_fish.show()
+	new_fish.global_position = %rod.global_position
+	launch_into(new_fish, $player/basket.global_position, 300)
+	$player/rod.position = Vector2.ZERO
+	fishing = false
+
+func launch_into(object: Node2D, target: Vector2, offset := 0.0):
 	var ver_tween = get_tree().create_tween()\
 			.set_trans(Tween.TRANS_SINE)
-	ver_tween.tween_property($player/rod, "position:y", \
-			-$player.to_local(%rod_hint.global_position).y, 0.3) \
+	ver_tween.tween_property(object, "position:y", \
+			(-object.get_parent()\
+			.to_local(target).y) - offset, 0.3) \
 			.set_ease(Tween.EASE_OUT)
 	
-	ver_tween.tween_property($player/rod, "position:y", \
-			$player.to_local(%rod_hint.global_position).y, 0.3) \
+	ver_tween.tween_property(object, "position:y", \
+			object.get_parent()\
+			.to_local(target).y, 0.3) \
 			.set_ease(Tween.EASE_IN)
 		
 	var hor_tween = get_tree().create_tween()\
 			.set_trans(Tween.TRANS_SINE)
-	hor_tween.tween_property($player/rod, "position:x", \
-			$player.to_local(%rod_hint.global_position).x, 0.6)
-	
-	
-	%rod_hint.position.x = 0
+	hor_tween.tween_property(object, "position:x", \
+			object.get_parent()\
+			.to_local(target).x, 0.6)
 	await hor_tween.finished
-	await get_tree().create_timer(randf_range(1, 5)).timeout
-	$player/rod.position = Vector2.ZERO
-	fishing = false
+	return
