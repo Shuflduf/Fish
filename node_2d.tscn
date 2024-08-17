@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyni81pt67f7l"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_rp30q"]
+[ext_resource type="Texture2D" uid="uid://c0nathc85mxlq" path="res://icon.svg" id="2_k37sf"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_rp30q")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="water" type="Sprite2D" parent="."]
+modulate = Color(0.329817, 0.231, 0.77, 0.8)
+position = Vector2(208, 203.5)
+scale = Vector2(8.4375, 2.11719)
+texture = ExtResource("2_k37sf")
+
+[node name="ground" type="Sprite2D" parent="."]
+modulate = Color(0.21, 0.21, 0.21, 1)
+position = Vector2(-497, 161)
+scale = Vector2(4.03125, 3.04688)
+texture = ExtResource("2_k37sf")
+
+[node name="player" type="Sprite2D" parent="."]
+position = Vector2(-411, -130)
+scale = Vector2(1, 1.58594)
+texture = ExtResource("2_k37sf")
+
+[node name="rod" type="Sprite2D" parent="player"]
+position = Vector2(116, 1.26109)
+scale = Vector2(0.546875, 0.344828)
+texture = ExtResource("2_k37sf")
