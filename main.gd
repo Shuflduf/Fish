@@ -8,7 +8,10 @@ signal caught
 var cast_speed = 0.0
 var bait_quality = 0.0
 
-var continuous_fishing = false
+var continuous_fishing = false:
+	set(value):
+		continuous_fishing = value
+		%rod_hint.visible = !value
 
 func _ready() -> void:
 	randomize()
@@ -16,8 +19,12 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		%rod_hint.position.x += delta * 300
-		%rod_hint.position.x = clamp(%rod_hint.position.x, 0, 800)
+		if continuous_fishing:
+			%rod_hint.position.x = randi_range(0, 800)
+			cast()
+		else:
+			%rod_hint.position.x += delta * 300
+			%rod_hint.position.x = clamp(%rod_hint.position.x, 0, 800)
 		
 	elif Input.is_action_just_released("cast"):
 		cast()

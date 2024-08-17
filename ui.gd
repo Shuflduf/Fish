@@ -20,7 +20,6 @@ func update_fish_label():
 
 
 func _on_cast_button_pressed() -> void:
-	
 	if fish < 10:
 		return
 
