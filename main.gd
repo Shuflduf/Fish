@@ -1,13 +1,22 @@
 extends Node2D
 
+var fishing = false
+
 func _physics_process(delta: float) -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		$Node2D/rod_hint.position.x += delta * 300
+		%rod_hint.position.x += delta * 300
+		%rod_hint.position.x = clamp(%rod_hint.position.x, 0, 800)
+		
 	elif Input.is_action_just_released("cast"):
 		cast()
 	
 
 func cast():
+	
+	if fishing:
+		%rod_hint.position.x = 0
+		return
+	fishing = true
 	var ver_tween = get_tree().create_tween()\
 			.set_trans(Tween.TRANS_SINE)
 	ver_tween.tween_property($player/rod, "position:y", \
@@ -26,5 +35,6 @@ func cast():
 	
 	%rod_hint.position.x = 0
 	await hor_tween.finished
-	await get_tree().create_timer(randf_range(1, 10)).timeout
+	await get_tree().create_timer(randf_range(1, 5)).timeout
 	$player/rod.position = Vector2.ZERO
+	fishing = false
