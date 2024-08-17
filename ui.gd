@@ -5,6 +5,8 @@ var fish = 1000:
 		fish = value
 		update_fish_label()
 
+var rain_cost = 1
+
 func _ready() -> void:
 	update_fish_label()
 	get_parent().caught.connect(add_fish)
@@ -17,7 +19,19 @@ func _on_window_close_requested() -> void:
 
 func update_fish_label():
 	$Control/Fish.text = "Fish: " + str(fish)
-
+	
+	
+func _on_rain_button_pressed() -> void:
+	if fish < rain_cost:
+		return
+	
+	fish -= rain_cost
+	get_parent().rain *= 2
+	rain_cost *= 2
+	$Window/VBoxContainer/Rain/RainLabel.text = \
+			"Rain: " + str(get_parent().rain)
+	$Window/VBoxContainer/Rain/RainButton.text = \
+			str(rain_cost) + " Fish / 1"
 
 func _on_cast_button_pressed() -> void:
 	if fish < 10:

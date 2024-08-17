@@ -57,3 +57,5 @@ z_index = -1
 position = Vector2(29, 47)
 scale = Vector2(0.280899, 0.140741)
 texture = ExtResource("4_mmdv8")
+
+[node name="Fish" type="Node2D" parent="."]

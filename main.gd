@@ -7,6 +7,7 @@ signal caught
 # in percent, where 100% is instant and 0% is normal
 var cast_speed = 0.0
 var bait_quality = 0.0
+var rain = 1
 
 var continuous_fishing = false:
 	set(value):
@@ -42,16 +43,24 @@ func cast():
 	%rod_hint.position.x = 0
 	var wait_time = lerp(randf_range(4, 8), 0.3, bait_quality / 100.0)
 	await get_tree().create_timer(wait_time).timeout
-	var new_fish = $fish.duplicate()
-	add_child(new_fish)
-	new_fish.show()
-	new_fish.global_position = %rod.global_position
-	launch_into(new_fish, $player/basket.global_position, 300)
-	caught.emit()
+	
+	
+	for i in rain:
+		var new_fish = $fish.duplicate()
+		$Fish.add_child(new_fish)
+		new_fish.show()
+		new_fish.global_position = %rod.global_position
+		launch_into(new_fish, $player/basket.global_position, \
+				300 + randf_range(-50, 80), \
+				0.6 + randf_range(-0.2, 0.2), true)
+		await get_tree().create_timer(1 / rain).timeout
+		caught.emit()
+	
+	
 	$player/rod.position = Vector2.ZERO
 	fishing = false
 
-func launch_into(object: Node2D, target: Vector2, offset := 0.0, speed = 0.6):
+func launch_into(object: Node2D, target: Vector2, offset := 0.0, speed = 0.6, delete_on_finish = false):
 	var ver_tween = get_tree().create_tween()\
 			.set_trans(Tween.TRANS_SINE)
 	ver_tween.tween_property(object, "position:y", \
@@ -70,4 +79,6 @@ func launch_into(object: Node2D, target: Vector2, offset := 0.0, speed = 0.6):
 			object.get_parent()\
 			.to_local(target).x, speed)
 	await hor_tween.finished
+	if delete_on_finish:
+		object.queue_free()
 	return

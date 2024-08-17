@@ -50,6 +50,21 @@ size_flags_vertical = 3
 mouse_filter = 0
 alignment = 1
 
+[node name="Rain" type="HBoxContainer" parent="Window/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RainLabel" type="Label" parent="Window/VBoxContainer/Rain"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Rain: 0"
+
+[node name="RainButton" type="Button" parent="Window/VBoxContainer/Rain"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+text = "1 Fish / 1"
+
 [node name="FasterCast" type="HBoxContainer" parent="Window/VBoxContainer"]
 layout_mode = 2
 alignment = 1
@@ -100,6 +115,7 @@ text = "50 Fish"
 
 [connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]
 [connection signal="close_requested" from="Window" to="." method="_on_window_close_requested"]
+[connection signal="pressed" from="Window/VBoxContainer/Rain/RainButton" to="." method="_on_rain_button_pressed"]
 [connection signal="pressed" from="Window/VBoxContainer/FasterCast/CastButton" to="." method="_on_cast_button_pressed"]
 [connection signal="pressed" from="Window/VBoxContainer/BetterBait/BaitButton" to="." method="_on_bait_button_pressed"]
 [connection signal="pressed" from="Window/VBoxContainer/Continuous/ContinuousButton" to="." method="_on_continuous_button_pressed"]
