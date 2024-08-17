@@ -1,7 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://cyni81pt67f7l"]
+[gd_scene load_steps=14 format=3 uid="uid://cyni81pt67f7l"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_rp30q"]
-[ext_resource type="Texture2D" uid="uid://c0nathc85mxlq" path="res://icon.svg" id="2_k37sf"]
 [ext_resource type="Texture2D" uid="uid://c4hutlrrlcdiv" path="res://assets/backround.png" id="3_1whkl"]
 [ext_resource type="PackedScene" uid="uid://dll6qyowb7jcd" path="res://ui.tscn" id="3_f4f27"]
 [ext_resource type="Texture2D" uid="uid://dsprefjej283l" path="res://assets/356px-Electric_fish.png" id="4_mmdv8"]
@@ -56,23 +55,28 @@ scale = Vector2(1.33454, 1.33454)
 texture = ExtResource("7_a7x7p")
 offset = Vector2(11.1529, -8.61176)
 
-[node name="Bobber" type="Sprite2D" parent="Player"]
+[node name="Thread" type="Line2D" parent="Player/Rod"]
+points = PackedVector2Array(21.6, -17.0824, 24.8471, -3.38824)
+width = 0.795
+
+[node name="Bobber" type="Sprite2D" parent="Player/Rod"]
 unique_name_in_owner = true
-position = Vector2(45.7826, -5.84058)
-scale = Vector2(1.335, 1.335)
+position = Vector2(24.8471, -3.10588)
+scale = Vector2(1.00034, 1.00034)
 texture = ExtResource("8_lhc1g")
 
-[node name="BobberPos" type="Marker2D" parent="Player"]
-position = Vector2(46.1594, -5.84058)
-scale = Vector2(1, 1)
+[node name="BobberPos" type="Marker2D" parent="Player/Rod"]
+position = Vector2(25.1294, -3.10588)
+scale = Vector2(0.749321, 0.749321)
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(-234, 60)
 
 [node name="rod_hint" type="Sprite2D" parent="Node2D"]
 unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.388235)
 scale = Vector2(0.328125, 0.328125)
-texture = ExtResource("2_k37sf")
+texture = ExtResource("8_lhc1g")
 
 [node name="DefaultFish" type="Sprite2D" parent="."]
 visible = false

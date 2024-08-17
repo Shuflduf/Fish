@@ -9,7 +9,7 @@ var cast_speed = 0.0
 var bait_quality = 0.0
 var rain = 1
 
-#var
+var in_water = false
 
 var continuous_fishing = false:
 	set(value):
@@ -18,6 +18,16 @@ var continuous_fishing = false:
 
 func _ready() -> void:
 	randomize()
+	%rod_hint.global_scale = %Bobber.global_scale
+
+
+
+func _process(_delta: float) -> void:
+	var points = $Player/Rod/Thread.points
+	points[1] = $Player/Rod/Thread.to_local(%Bobber.global_position)
+	$Player/Rod/Thread.points = points
+	if in_water:
+		%Bobber.position.y += sin(Time.get_ticks_msec() / 1000.0) / 100.0
 
 
 func _physics_process(delta: float) -> void:
@@ -25,7 +35,7 @@ func _physics_process(delta: float) -> void:
 		if continuous_fishing:
 			%rod_hint.position.x = randi_range(0, 800)
 			cast()
-		else:
+		elif !fishing:
 			%rod_hint.position.x += delta * 300
 			%rod_hint.position.x = clamp(%rod_hint.position.x, 0, 800)
 
@@ -46,8 +56,9 @@ func cast():
 	await tween.finished
 	var pre_cast_speed = lerp(0.6, 0.0, cast_speed / 100.0)
 	await launch_into(%Bobber, %rod_hint.global_position, 25, pre_cast_speed)
-
+	in_water = true
 	%rod_hint.position.x = 0
+	%rod_hint.hide()
 	var wait_time = lerp(randf_range(4, 8), 0.3, bait_quality / 100.0)
 	await get_tree().create_timer(wait_time).timeout
 
@@ -63,8 +74,9 @@ func cast():
 		await get_tree().create_timer(1 / (rain * ((cast_speed + 5) / 10.0))).timeout
 		caught.emit()
 
-
-	%Bobber.position = $Player/BobberPos.position
+	%rod_hint.show()
+	in_water = false
+	%Bobber.position = $Player/Rod/BobberPos.position
 	fishing = false
 
 func launch_into(object: Node2D, target: Vector2, offset := 0.0, speed = 0.6, delete_on_finish = false):
