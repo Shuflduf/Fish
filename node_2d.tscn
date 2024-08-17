@@ -1,48 +1,65 @@
-[gd_scene load_steps=5 format=3 uid="uid://cyni81pt67f7l"]
+[gd_scene load_steps=15 format=3 uid="uid://cyni81pt67f7l"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_rp30q"]
 [ext_resource type="Texture2D" uid="uid://c0nathc85mxlq" path="res://icon.svg" id="2_k37sf"]
+[ext_resource type="Texture2D" uid="uid://c4hutlrrlcdiv" path="res://assets/backround.png" id="3_1whkl"]
 [ext_resource type="PackedScene" uid="uid://dll6qyowb7jcd" path="res://ui.tscn" id="3_f4f27"]
 [ext_resource type="Texture2D" uid="uid://dsprefjej283l" path="res://assets/356px-Electric_fish.png" id="4_mmdv8"]
+[ext_resource type="Texture2D" uid="uid://rfxu3la0oroe" path="res://assets/water.png" id="4_pw6eh"]
+[ext_resource type="Shader" path="res://wave.gdshader" id="4_ubfbj"]
+[ext_resource type="Texture2D" uid="uid://cjl2ww7bjqcrb" path="res://assets/cliff.png" id="5_ex8yg"]
+[ext_resource type="Texture2D" uid="uid://b3s57egffr2nr" path="res://assets/player.png" id="6_wpckp"]
+[ext_resource type="Texture2D" uid="uid://dipkxp00mli67" path="res://assets/rod.png" id="7_a7x7p"]
+[ext_resource type="Texture2D" uid="uid://bk7yptxlaacd3" path="res://assets/bobber.png" id="8_lhc1g"]
+[ext_resource type="Texture2D" uid="uid://dnmrhjspxwelv" path="res://assets/bucket_front.png" id="9_gkcnr"]
+[ext_resource type="Texture2D" uid="uid://0bbma3j2hynm" path="res://assets/bucket_back.png" id="10_ro4jf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u6wsy"]
+shader = ExtResource("4_ubfbj")
+shader_parameter/speed = Vector2(0.2, 1)
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_rp30q")
 
 [node name="CanvasLayer" parent="." instance=ExtResource("3_f4f27")]
-visible = false
+
+[node name="Backround" type="Sprite2D" parent="."]
+modulate = Color(0.65834, 0.65834, 0.65834, 1)
+z_index = -100
+scale = Vector2(6.30769, 6.30769)
+texture = ExtResource("3_1whkl")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="water" type="Sprite2D" parent="."]
-modulate = Color(0.329817, 0.231, 0.77, 0.8)
-position = Vector2(208, 203.5)
-scale = Vector2(8.4375, 2.11719)
-texture = ExtResource("2_k37sf")
+texture_repeat = 2
+material = SubResource("ShaderMaterial_u6wsy")
+position = Vector2(130, 186)
+scale = Vector2(6.20192, 6.20192)
+texture = ExtResource("4_pw6eh")
 
 [node name="ground" type="Sprite2D" parent="."]
-modulate = Color(0.21, 0.21, 0.21, 1)
-position = Vector2(-497, 161)
-scale = Vector2(4.03125, 3.04688)
-texture = ExtResource("2_k37sf")
+position = Vector2(-440, 161)
+scale = Vector2(6.22222, 6.22222)
+texture = ExtResource("5_ex8yg")
 
 [node name="player" type="Sprite2D" parent="."]
-position = Vector2(-411, -130)
-scale = Vector2(1, 1.58594)
-texture = ExtResource("2_k37sf")
+position = Vector2(-363, -71)
+scale = Vector2(5.30769, 5.30769)
+texture = ExtResource("6_wpckp")
 
 [node name="rod" type="Sprite2D" parent="player"]
 unique_name_in_owner = true
-position = Vector2(116, 1.26109)
-scale = Vector2(0.546875, 0.344828)
-texture = ExtResource("2_k37sf")
+z_index = -1
+position = Vector2(12.6232, -1.69565)
+scale = Vector2(1.33454, 1.33454)
+texture = ExtResource("7_a7x7p")
+offset = Vector2(11.1529, -8.61176)
 
-[node name="basket" type="Sprite2D" parent="player"]
-modulate = Color(1, 0.775167, 0.29, 1)
-position = Vector2(-138, 39.7241)
-rotation = 0.128
-scale = Vector2(0.81037, 0.649367)
-skew = 0.18507
-texture = ExtResource("2_k37sf")
+[node name="Bobber" type="Sprite2D" parent="player"]
+position = Vector2(45.7826, -5.84058)
+scale = Vector2(1.335, 1.335)
+texture = ExtResource("8_lhc1g")
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(-234, 60)
@@ -60,3 +77,14 @@ scale = Vector2(0.280899, 0.140741)
 texture = ExtResource("4_mmdv8")
 
 [node name="Fish" type="Node2D" parent="."]
+
+[node name="Basket" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(-503, -57)
+scale = Vector2(6.45455, 6.45454)
+texture = ExtResource("9_gkcnr")
+metadata/_edit_group_ = true
+
+[node name="Back" type="Sprite2D" parent="Basket"]
+z_index = -1
+texture = ExtResource("10_ro4jf")

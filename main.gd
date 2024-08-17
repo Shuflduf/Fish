@@ -9,6 +9,8 @@ var cast_speed = 0.0
 var bait_quality = 0.0
 var rain = 1
 
+#var
+
 var continuous_fishing = false:
 	set(value):
 		continuous_fishing = value
@@ -45,12 +47,12 @@ func cast():
 	await get_tree().create_timer(wait_time).timeout
 
 
-	for i in floori(rain / 2.0):
+	for i in ceili(rain / 2.0):
 		var new_fish = $fish.duplicate()
 		$Fish.add_child(new_fish)
 		new_fish.show()
 		new_fish.global_position = %rod.global_position
-		launch_into(new_fish, $player/basket.global_position, \
+		launch_into(new_fish, $Basket.global_position, \
 				300 + randf_range(-50, 80), \
 				0.6 + randf_range(-0.2, 0.2), true)
 		await get_tree().create_timer(1 / (rain * ((cast_speed + 5) / 10.0))).timeout
