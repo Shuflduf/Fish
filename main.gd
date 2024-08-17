@@ -45,7 +45,7 @@ func cast():
 	await get_tree().create_timer(wait_time).timeout
 	
 	
-	for i in rain:
+	for i in floori(rain / 2.0):
 		var new_fish = $fish.duplicate()
 		$Fish.add_child(new_fish)
 		new_fish.show()
@@ -53,7 +53,7 @@ func cast():
 		launch_into(new_fish, $player/basket.global_position, \
 				300 + randf_range(-50, 80), \
 				0.6 + randf_range(-0.2, 0.2), true)
-		await get_tree().create_timer(1 / rain).timeout
+		await get_tree().create_timer(1 / (rain * ((cast_speed + 5) / 10.0))).timeout
 		caught.emit()
 	
 	
