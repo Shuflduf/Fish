@@ -29,3 +29,11 @@ texture = ExtResource("2_k37sf")
 position = Vector2(116, 1.26109)
 scale = Vector2(0.546875, 0.344828)
 texture = ExtResource("2_k37sf")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(-234, 60)
+
+[node name="rod_hint" type="Sprite2D" parent="Node2D"]
+unique_name_in_owner = true
+scale = Vector2(0.328125, 0.328125)
+texture = ExtResource("2_k37sf")
