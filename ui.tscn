@@ -17,8 +17,41 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Fish" type="Label" parent="Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_right = 94.0
+offset_bottom = 44.0
 text = "Fish: 0"
 label_settings = SubResource("LabelSettings_mq7em")
+
+[node name="Window" type="Window" parent="."]
+title = "Shop"
+initial_position = 1
+size = Vector2i(460, 190)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Window"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 0
+
+[node name="FasterCast" type="HBoxContainer" parent="Window/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="Window/VBoxContainer/FasterCast"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Faster Cast: 3%"
+
+[node name="Button" type="Button" parent="Window/VBoxContainer/FasterCast"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+text = "10 Fish / 5%"
+
+[connection signal="close_requested" from="Window" to="." method="_on_window_close_requested"]
+[connection signal="pressed" from="Window/VBoxContainer/FasterCast/Button" to="." method="_on_button_pressed"]
