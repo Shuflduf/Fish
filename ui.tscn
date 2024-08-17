@@ -42,16 +42,33 @@ layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Label" type="Label" parent="Window/VBoxContainer/FasterCast"]
+[node name="CastLabel" type="Label" parent="Window/VBoxContainer/FasterCast"]
 layout_mode = 2
 size_flags_horizontal = 6
-text = "Faster Cast: 3%"
+text = "Faster Cast: 0%"
 
-[node name="Button" type="Button" parent="Window/VBoxContainer/FasterCast"]
+[node name="CastButton" type="Button" parent="Window/VBoxContainer/FasterCast"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-text = "10 Fish / 5%"
+text = "10 Fish / 3%"
+
+[node name="BetterBait" type="HBoxContainer" parent="Window/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="BaitLabel" type="Label" parent="Window/VBoxContainer/BetterBait"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Better Bait: 0%"
+
+[node name="BaitButton" type="Button" parent="Window/VBoxContainer/BetterBait"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+text = "30 Fish / 4%"
 
 [connection signal="close_requested" from="Window" to="." method="_on_window_close_requested"]
-[connection signal="pressed" from="Window/VBoxContainer/FasterCast/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Window/VBoxContainer/FasterCast/CastButton" to="." method="_on_cast_button_pressed"]
+[connection signal="pressed" from="Window/VBoxContainer/BetterBait/BaitButton" to="." method="_on_bait_button_pressed"]

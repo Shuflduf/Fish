@@ -4,8 +4,10 @@ var fishing = false
 
 signal caught
 
-# in percent, where 0% is instant and 100% is normal
-var cast_speed = 100.0
+# in percent, where 100% is instant and 0% is normal
+var cast_speed = 0.0
+var bait_quality = 0.0
+
 
 func _physics_process(delta: float) -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -22,7 +24,7 @@ func cast():
 		return
 	fishing = true
 	
-	var pre_cast_speed = 0.6 * (cast_speed / 100.0)
+	var pre_cast_speed = lerp(0.6, 0.0, cast_speed / 100.0)
 	await launch_into(%rod, %rod_hint.global_position, 0, pre_cast_speed)
 	
 	%rod_hint.position.x = 0
@@ -41,18 +43,18 @@ func launch_into(object: Node2D, target: Vector2, offset := 0.0, speed = 0.6):
 			.set_trans(Tween.TRANS_SINE)
 	ver_tween.tween_property(object, "position:y", \
 			(-object.get_parent()\
-			.to_local(target).y) - offset, 0.3) \
+			.to_local(target).y) - offset, speed / 2.0) \
 			.set_ease(Tween.EASE_OUT)
 	
 	ver_tween.tween_property(object, "position:y", \
 			object.get_parent()\
-			.to_local(target).y, 0.3) \
+			.to_local(target).y, speed / 2.0) \
 			.set_ease(Tween.EASE_IN)
 		
 	var hor_tween = get_tree().create_tween()\
 			.set_trans(Tween.TRANS_SINE)
 	hor_tween.tween_property(object, "position:x", \
 			object.get_parent()\
-			.to_local(target).x, 0.6)
+			.to_local(target).x, speed)
 	await hor_tween.finished
 	return
